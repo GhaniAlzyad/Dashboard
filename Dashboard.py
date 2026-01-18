@@ -53,10 +53,11 @@ all_df = pd.read_csv("main_data.csv")
 # Memastikan kolom tanggal bertipe datetime
 datetime_columns = ["order_purchase_timestamp", "order_delivered_customer_date"]
 for column in datetime_columns:
-    all_df[column] = pd.to_datetime(all_df[column])
+    if column in all_df.columns:
+        all_df[column] = pd.to_datetime(all_df[column])
 
 all_df.sort_values(by="order_purchase_timestamp", inplace=True)
-all_df.reset_index(inplace=True)
+all_df.reset_index(drop=True, inplace=True)
 
 # ====================================================================
 # FILTER SIDEBAR
